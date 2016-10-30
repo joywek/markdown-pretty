@@ -10,7 +10,7 @@ def readme():
 
 setup(
     name='python-markdown-pretty',
-    version='0.8.1',
+    version='1.0.1',
     description='Code pretty  extension for python-markdown',
     long_description=readme(),
     url='https://github.com/joywek/python-markdown-pretty',

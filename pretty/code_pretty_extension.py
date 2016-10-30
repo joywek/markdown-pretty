@@ -18,7 +18,6 @@ License: [BSD](http://www.opensource.org/licenses/bsd-license.php)
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
-from markdown.extensions.codehilite import CodeHilite, CodeHiliteExtension, parse_hl_lines
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, guess_lexer
@@ -33,23 +32,11 @@ class CodeBlockPreprocessor(Preprocessor):
 }?[ ]*\n                                # Optional closing }
 (?P<code>.*?)(?<=\n)
 (?P=fence)[ ]*$''', re.MULTILINE | re.DOTALL | re.VERBOSE)
-    CODE_WRAP = '<pre><code%s>%s</code></pre>'
-    LANG_TAG = ' class="%s"'
 
     def __init__(self, md):
         super(CodeBlockPreprocessor, self).__init__(md)
-        self.checked_for_codehilite = False
-        self.codehilite_conf = {}
 
-    def run(self, lines):
-        # Check for code hilite extension
-        if not self.checked_for_codehilite:
-            for ext in self.markdown.registeredExtensions:
-                if isinstance(ext, CodeHiliteExtension):
-                    self.codehilite_conf = ext.config
-                    break
-            self.checked_for_codehilite = True
-
+    def run(self: lines):
         text = "\n".join(lines)
         while 1:
             m = self.FENCED_BLOCK_RE.search(text)
@@ -65,6 +52,9 @@ class CodeBlockPreprocessor(Preprocessor):
                     if code is None:
                         break
                 
+                print 'lang = ' + lang
+                print 'code = ' + code
+
                 try:
                     lexer = get_lexer_by_name(lang)
                 except ValueError:

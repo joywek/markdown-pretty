@@ -1,3 +1,3 @@
 __all__ = ['pretty']
 
-from .pretty import makeExtension
+from .code_pretty_extension import makeExtension

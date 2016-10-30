@@ -34,7 +34,7 @@ docs:
 
 .PHONY : test
 test:
-	tox
+	@nosetests
 
 .PHONY : update-tests
 update-tests:
