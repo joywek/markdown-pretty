@@ -36,7 +36,7 @@ class CodeBlockPreprocessor(Preprocessor):
     def __init__(self, md):
         super(CodeBlockPreprocessor, self).__init__(md)
 
-    def run(self: lines):
+    def run(self, lines):
         text = "\n".join(lines)
         while 1:
             m = self.FENCED_BLOCK_RE.search(text)
@@ -52,9 +52,6 @@ class CodeBlockPreprocessor(Preprocessor):
                     if code is None:
                         break
                 
-                print 'lang = ' + lang
-                print 'code = ' + code
-
                 try:
                     lexer = get_lexer_by_name(lang)
                 except ValueError:
